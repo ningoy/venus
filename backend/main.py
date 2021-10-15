@@ -8,11 +8,24 @@ from db import crud, models, schemas
 from db.database import SessionLocal, engine
 import hashlib
 from pathlib import Path
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+]
 
 models.Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 absolute_path = "/home/ningoy/projects/venus/file_storage"
 
 
