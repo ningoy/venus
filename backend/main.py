@@ -9,6 +9,7 @@ from db.database import SessionLocal, engine
 import hashlib
 from pathlib import Path
 from fastapi.middleware.cors import CORSMiddleware
+from settings import Settings
 
 origins = [
     "http://localhost",
@@ -16,7 +17,7 @@ origins = [
 ]
 
 models.Base.metadata.create_all(bind=engine)
-
+settings = Settings()
 
 app = FastAPI()
 app.add_middleware(
@@ -26,7 +27,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-absolute_path = "/home/ningoy/projects/venus/file_storage"
+absolute_path = settings.absolute_path
 
 
 def get_db():
